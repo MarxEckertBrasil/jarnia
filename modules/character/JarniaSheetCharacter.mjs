@@ -23,12 +23,41 @@ export class JarniaSheetCharacter extends ActorSheet {
             };
         };
 
-        const statusPacker = (statusName) => {return {
+        const statusPacker = (statusName) => {
+            let max = `${statusName}Max`;
+            return {
+                "name": statusName,
+                "nameMax": max,
+                "label": game.i18n.localize(`Jarnia.Character.Status.${capitalize(statusName)}`),
+                "value": sourceContext.actor.system[statusName],
+                "valueMax": sourceContext.actor.system[max],
+            };
+        };
+
+        const statusMaxPacker = (statusName) => {
+            return {
                 "name": statusName,
                 "label": game.i18n.localize(`Jarnia.Character.Status.${capitalize(statusName)}`),
                 "value": sourceContext.actor.system[statusName],
             };
         };
+
+        const getEnrichHTML = async (htmlField) => await TextEditor.enrichHTML(htmlField, {
+            secrets: sourceContext.actor.isOwner,
+            async: true,
+            relativeTo: sourceContext.actor
+        });
+
+        const physSlots = sourceContext.actor.system.physicalSlots;
+        const nslots = sourceContext.actor.system.vigor + 10;
+
+        while (physSlots.length < nslots) {
+            physSlots.push('');
+        }
+
+        while (physSlots.length > nslots) {
+            physSlots.pop();
+        }
 
         return {
             character: sourceContext.actor.system,
@@ -39,7 +68,14 @@ export class JarniaSheetCharacter extends ActorSheet {
 
             charBasicAttrs: CONFIG.Jarnia.charBasicAttrs.map(attributePacker),
             charStatus: CONFIG.Jarnia.charStatus.map(statusPacker),
-            charMaxStatus: CONFIG.Jarnia.charMaxStatus.map(statusPacker),
+            charMaxStatus: CONFIG.Jarnia.charMaxStatus.map(statusMaxPacker),
+
+            charSkills: await getEnrichHTML(sourceContext.actor.system.skills),
+            charTraits: await getEnrichHTML(sourceContext.actor.system.traits),
+            charDescription: await getEnrichHTML(sourceContext.actor.system.description),
+            charGifts: await getEnrichHTML(sourceContext.actor.system.gifts),
+            charVocations: await getEnrichHTML(sourceContext.actor.system.vocations),
+            charPhysicalSlots: sourceContext.actor.system.physicalSlots,
         };
     }
 

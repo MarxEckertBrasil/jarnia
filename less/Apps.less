@@ -10,6 +10,10 @@
 		.alegreya-label();
 	}
 
+    .editor {
+        min-height: 30px;
+    }
+
 	// Item Sheet form fields
  	input[type="text"],
  	input[type="number"],
@@ -30,6 +34,14 @@
 	    	box-shadow: 0 0 10px @colorPurple;
 		}
 	}
+
+    // Disabled inputs
+	input[type="text"],
+	input[type="number"] {
+        &[disabled] {
+            pointer-events: none;
+        }
+    }
 
 	/* ----------------------------------------- */
   	/*  Navigation                               */

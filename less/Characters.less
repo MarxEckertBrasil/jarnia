@@ -28,7 +28,7 @@
 		/* ----------------------------------------- */
 		/*  Attributes                               */
 		/* ----------------------------------------- */
-		div.tab.attributes ul.attribute {
+		ul.attribute, ul.status {
 			flex: 0 0 60px;
 		    align-content: flex-start;
 		    list-style: none;
@@ -36,10 +36,9 @@
 			padding: 0;
     		.alegreya-label();
     		border: @borderGroove;
-    		border-radius: 3px;
+    		border-radius: 9px;
 			
     		li.attribute {
-    			height: 70px;
 	     	 	text-align: center;
 	     	 	border-bottom: @borderGroove;
 	     	 	position: relative;	
@@ -51,7 +50,6 @@
 
 			 	&:last-child {
 		  	      border-bottom: none;
-		  	      margin-bottom: -3px;
 		  	    }
 
 		  	    .attribute-stats span.sep {
@@ -64,56 +62,55 @@
 				.attribute-value {
 					width: 46px;
 					height: 40px;
-					margin: 0 auto;
+					margin: 0 auto 5px;
 					line-height: 42px;
 					font-size: 40px;
 					font-weight: normal;
 				}
-    		}
-  		}	
 
-		div.tab.attributes ul.status {
-			flex: 0 0 60px;
-		    align-content: flex-start;
-		    list-style: none;
-			margin: 0;
-			padding: 0;
-    		.alegreya-label();
-    		border: @borderGroove;
-    		border-radius: 3px;
-			
-    		li.attribute {
-    			height: 70px;
-	     	 	text-align: center;
-	     	 	border-bottom: @borderGroove;
-	     	 	position: relative;	
-
-	     	 	.attribute-name {
-	     	 		font-size: 18px;
-	     	 		margin: 0 5px;
-	     	 	}
-
-			 	&:last-child {
-		  	      border-bottom: none;
-		  	      margin-bottom: -3px;
-		  	    }
-
-		  	    .attribute-stats span.sep {
-					border-left: 1px solid @colorGrey;
-				    width: 1px;
-				    height: 30px;
-				    display: inline-flex;
-		  	    }
-
-				.attribute-value {
-					width: 46px;
-					height: 40px;
-					margin: 0 auto;
-					line-height: 42px;
-					font-size: 40px;
-					font-weight: normal;
+				.attribute-max {
+					.attribute-value;
+					border: none;
+					background: none;
 				}
     		}
-  		}	
+  		}
+
+		ul.status {
+			flex: 0 0 120px;
+			height: 150px;
+		}
+
+		ul.sheet-config {
+			flex: 0 0 150px;
+  		}
+
+		.physical-slots {
+			width: 100%;
+			position: relative;
+
+			.physical-slots-row {
+				position: relative;
+				margin: 0 auto;
+				width: 95%;
+
+				.item-slot {
+					height: 30px;
+					margin: 0 0 0 3%;
+					width: 90%;
+				}
+
+				.item-slot.stressed {
+					color: gray;
+					text-decoration: line-through;
+					pointer-events: none;
+				}
+
+				.item-stressed {
+					margin: 1%;
+					vertical-align: middle;
+				}
+			}
+		}
 	}
 }
